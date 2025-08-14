@@ -1,6 +1,4 @@
-# for subclass test detection to work, we need to require it
-# in this file so the subclasses are reached.
-require_relative "./database.test"
+Dir[File.join(__dir__, '**/*.test.rb')].each { |file| require file }
 
 class Test
   def debug_puts(*params)
