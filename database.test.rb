@@ -18,6 +18,6 @@ class DatabaseTest < Test
     assert_equals(db_copy.get("a"), 2)
     assert_equals(db_copy.get("b"), 3)
 
-    db.drop!
+    db.delete!
   end
 end

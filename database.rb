@@ -12,6 +12,8 @@ class Database
     if has_data?(@file_name)
       self.restore!
     end
+
+    @file = self.open
   end
 
   def get(key)
@@ -27,12 +29,24 @@ class Database
   end
 
   def append(line)
-    File.write(@file_name, line, mode: "a")
+    @file.write(line)
   end
 
   def drop!
     @store = {}
+    @file.truncate(0)
+  end
+
+  def delete!
+    self.drop!
     File.delete(@file_name)
+  end
+
+  def open
+    file = File.open(@file_name, mode: "a")
+    file.sync = true
+
+    file
   end
 
   def restore!
